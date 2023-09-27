@@ -1,4 +1,4 @@
-Feature: Get User
+Feature: Get user
   As a user
   I want to get single user
   So that I can read single user data

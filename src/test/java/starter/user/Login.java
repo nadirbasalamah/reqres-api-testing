@@ -8,36 +8,35 @@ import starter.utils.JsonSchema;
 
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchema;
 import static net.serenitybdd.rest.SerenityRest.restAssuredThat;
-import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.notNullValue;
 
-public class UpdateUser {
+public class Login {
     private static String url = "https://reqres.in/api/";
 
-    @Step("I set API endpoint for update user")
+    @Step("I set API endpoint for login")
     public String setApiEndpoint() {
-        return url + "users/2";
+        return url + "login";
     }
 
-    @Step("I send request to update user with valid inputs")
-    public void sendUpdateUserRequest() {
+    @Step("I send request to login with valid email {string} and valid password {string}")
+    public void sendLoginRequest(String email, String password) {
         JSONObject requestBody = new JSONObject();
 
-        requestBody.put("name", "morpheus");
-        requestBody.put("job","zion resident");
+        requestBody.put("email", email);
+        requestBody.put("password", password);
 
         SerenityRest.given()
                 .header("Content-Type","application/json")
                 .body(requestBody.toString())
-                .put(setApiEndpoint());
+                .post(setApiEndpoint());
     }
 
-    @Step("I receive valid data for updated user")
-    public void receiveValidUpdatedUserData() {
+    @Step("I receive valid data for login")
+    public void receiveValidDataForLogin() {
         JsonSchemaHelper helper = new JsonSchemaHelper();
-        String schema = helper.getResponseSchema(JsonSchema.UPDATE_USER_RESPONSE_SCHEMA);
+        String schema = helper.getResponseSchema(JsonSchema.LOGIN_RESPONSE_SCHEMA);
 
-        restAssuredThat(response -> response.body("'name'", equalTo("morpheus")));
-        restAssuredThat(response -> response.body("'job'", equalTo("zion resident")));
+        restAssuredThat(response -> response.body("'token'", notNullValue()));
         restAssuredThat(response -> response.body(matchesJsonSchema(schema)));
     }
 
