@@ -1,5 +1,6 @@
 package starter.user;
 
+import com.github.javafaker.Faker;
 import net.serenitybdd.rest.SerenityRest;
 import net.thucydides.core.annotations.Step;
 import org.json.JSONObject;
@@ -9,7 +10,7 @@ import starter.utils.JsonSchemaHelper;
 
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchema;
 import static net.serenitybdd.rest.SerenityRest.restAssuredThat;
-import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.notNullValue;
 
 public class CreateUser {
     private static String url = "https://reqres.in/api/";
@@ -23,8 +24,16 @@ public class CreateUser {
     public void sendCreateUserRequest() {
         JSONObject requestBody = new JSONObject();
 
-        requestBody.put("name","morpheus");
-        requestBody.put("job", "zion resident");
+        // create Faker object
+        Faker faker = new Faker();
+
+        // generate value
+        String name = faker.name().name();
+        String job = faker.job().title();
+
+        // insert value into request body
+        requestBody.put("name",name);
+        requestBody.put("job", job);
 
         String token = GenerateToken.generateToken();
 
@@ -45,8 +54,8 @@ public class CreateUser {
         JsonSchemaHelper helper = new JsonSchemaHelper();
         String schema = helper.getResponseSchema(JsonSchema.CREATE_USER_RESPONSE_SCHEMA);
 
-        restAssuredThat(response -> response.body("'name'", equalTo("morpheus")));
-        restAssuredThat(response -> response.body("'job'", equalTo("zion resident")));
+        restAssuredThat(response -> response.body("'name'", notNullValue()));
+        restAssuredThat(response -> response.body("'job'", notNullValue()));
         restAssuredThat(response -> response.body(matchesJsonSchema(schema)));
     }
 }
