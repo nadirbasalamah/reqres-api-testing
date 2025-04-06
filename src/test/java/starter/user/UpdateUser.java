@@ -1,7 +1,7 @@
 package starter.user;
 
+import net.serenitybdd.annotations.Step;
 import net.serenitybdd.rest.SerenityRest;
-import net.thucydides.core.annotations.Step;
 import org.json.JSONObject;
 import starter.utils.JsonSchemaHelper;
 import starter.utils.JsonSchema;
@@ -11,7 +11,7 @@ import static net.serenitybdd.rest.SerenityRest.restAssuredThat;
 import static org.hamcrest.Matchers.equalTo;
 
 public class UpdateUser {
-    private static String url = "https://reqres.in/api/";
+    private static final String url = "https://reqres.in/api/";
 
     @Step("I set API endpoint for update user")
     public String setApiEndpoint() {

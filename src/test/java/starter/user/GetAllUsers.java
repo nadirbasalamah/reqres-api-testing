@@ -1,7 +1,7 @@
 package starter.user;
 
+import net.serenitybdd.annotations.Step;
 import net.serenitybdd.rest.SerenityRest;
-import net.thucydides.core.annotations.Step;
 import starter.utils.JsonSchema;
 import starter.utils.JsonSchemaHelper;
 
@@ -9,7 +9,7 @@ import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchema;
 import static net.serenitybdd.rest.SerenityRest.restAssuredThat;
 
 public class GetAllUsers {
-    private static String url = "https://reqres.in/api/";
+    private static final String url = "https://reqres.in/api/";
 
     @Step("I set API endpoint for get all users")
     public String setApiEndpoint() {

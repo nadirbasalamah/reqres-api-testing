@@ -1,12 +1,12 @@
 package starter.user;
 
+import net.serenitybdd.annotations.Step;
 import net.serenitybdd.rest.SerenityRest;
-import net.thucydides.core.annotations.Step;
 
 import static net.serenitybdd.rest.SerenityRest.restAssuredThat;
 
 public class DeleteUser {
-    private static String url = "https://reqres.in/api/";
+    private static final String url = "https://reqres.in/api/";
 
     @Step("I set API endpoint for delete user")
     public String setApiEndpoint() {

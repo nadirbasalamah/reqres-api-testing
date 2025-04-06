@@ -1,7 +1,7 @@
 package starter.user;
 
+import net.serenitybdd.annotations.Step;
 import net.serenitybdd.rest.SerenityRest;
-import net.thucydides.core.annotations.Step;
 import org.json.JSONObject;
 import starter.utils.FileUtils;
 import starter.utils.JsonSchemaHelper;
@@ -12,7 +12,7 @@ import static net.serenitybdd.rest.SerenityRest.restAssuredThat;
 import static org.hamcrest.Matchers.notNullValue;
 
 public class Register {
-    private static String url = "https://reqres.in/api/";
+    private static final String url = "https://reqres.in/api/";
 
     @Step("I set API endpoint for register")
     public String setApiEndpoint() {

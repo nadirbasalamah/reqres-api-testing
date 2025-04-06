@@ -1,7 +1,7 @@
 package starter.user;
 
+import net.serenitybdd.annotations.Step;
 import net.serenitybdd.rest.SerenityRest;
-import net.thucydides.core.annotations.Step;
 import starter.utils.JsonSchema;
 import starter.utils.JsonSchemaHelper;
 
@@ -11,7 +11,7 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.notNullValue;
 
 public class GetUser {
-    private static String url = "https://reqres.in/api/";
+    private static final String url = "https://reqres.in/api/";
 
     @Step("I set API endpoint for get user")
     public String setApiEndpoint() {
